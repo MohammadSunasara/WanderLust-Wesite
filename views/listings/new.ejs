@@ -1,0 +1,53 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="row">
+<div class="col-8 offset-2">
+    <h2>Add a New Listing</h2>
+    <form action="/listings" method="POST" novalidate class="needs-validation">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="listing[title]" required>
+        <div class="valid-feedback">Perfect Title</div>
+        <div class="invalid-feedback">Enter title</div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="listing[description]" rows="4" required></textarea>
+        <div class="valid-feedback">Perfect Title</div>
+        <div class="invalid-feedback">Enter Valid Title</div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input type="text" class="form-control" id="image" name="lisitng[image]" required>
+        <div class="valid-feedback">Perfect Title</div>
+        <div class="invalid-feedback">Enter Valid Image-link</div>
+      </div>
+      <div class="row ">
+      <div class="mb-3 col-md-4">
+        <label for="price" class="form-label">Price</label>
+        <input  class="form-control" id="price" name="listing[price]" required>
+        <div class="valid-feedback">Done</div>
+        <div class="invalid-feedback">Enter Valid Price</div>
+      </div>
+       <div class="mb-3 col-md-8">
+        <label for="country" class="form-label">Country</label>
+        <input type="text" class="form-control" id="country" name="listing[country]" required>
+        <div class="valid-feedback">Done</div>
+        <div class="invalid-feedback">Enter Valid Country</div>
+      </div>
+      </div>
+       <div class="mb-3 ">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" class="form-control" id="location" name="listing[location]" required>
+        <div class="valid-feedback">Done</div>
+        <div class="invalid-feedback">Enter Valid Location</div>
+      </div>
+     
+      <button type="submit" class="btn btn-primary mb-2">Add</button>
+    </form>
+    </div>
+    </div>
+    <script src="/js/script.js"></script>
+  
+
+

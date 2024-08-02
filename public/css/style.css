@@ -1,0 +1,134 @@
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    
+
+}
+.container{
+    flex: 1;
+}
+
+
+.nav-link {
+    position: relative; /* Required for positioning the pseudo-element */
+    text-decoration: none; /* Remove default underline */
+    color: #222; /* Default text color */
+  }
+  
+  .nav-link::after {
+    content: ''; /* Create an empty pseudo-element */
+    display: block;
+    width: 0; /* Start with no width */
+    height: 1px; /* Thickness of the underline */
+    background-color: red; /* Color of the underline */
+    position: absolute;
+    bottom: -1px; /* Position the underline below the text */
+    left: 0;
+    transition: width 0.3s ease; /* Smooth transition effect */
+  }
+  
+  .nav-link:hover::after {
+    width: 100%; /* Expand to full width on hover */
+  }
+  
+
+
+.navbar{
+    height: 5rem;
+    background-color: white ;
+}
+
+
+.navbar-nav {
+    background-color: #ffffff; /* White background color */
+    padding: 0.5rem 1rem; /* Adjust padding as needed */
+    border-radius: 0.25rem; /* Optional: Add border-radius for rounded corners */
+  }
+ 
+  
+  
+
+/* footer */
+.fa-compass{
+    color: red;
+    font-size: 2rem;
+}
+
+.f-info-links a{
+    color: #222;
+    text-decoration: none;
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+
+
+.f-info{
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    flex-wrap: wrap;
+    background-color: #ebebeb;
+    height: 8rem;
+    width: 100%;
+
+}
+
+.f-info-links,.f-info-socials , .f-info-brand{
+    width: 100%;
+    display: flex;
+align-items: center;
+    justify-content: center;
+}
+
+
+
+.f-info-socials i{
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    
+}
+
+
+
+/* cards */
+.listing-card{
+    border: none !important;
+    margin-top: 2rem !important;
+}
+
+.card-img-top{
+  border: 1rem !important;
+  width: 100% !important;
+  height: 18rem !important;
+  object-fit: cover !important;
+}
+.card-body{
+    padding: 0 !important;
+}
+.card-text p{
+    font-weight: 400 !important;
+}
+
+.listing-a{
+    text-decoration: none;
+}
+.card-img-overlay:hover{
+    opacity: 0.3;
+    background-color: white;
+}
+
+.btn{
+    background-color: red !important;
+    border: none !important;
+}
+
+.btns{
+    display: flex;
+}
+
+.edit{
+  
+    width: 4rem !important;
+}
