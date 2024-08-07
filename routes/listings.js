@@ -1,101 +1,83 @@
 const express = require("express");
-const router=express.Router()
+const router = express.Router();
 const Listing = require("../models/listing.js");
-const { listingSchema }=require("../models/server.js");
+const { listingSchema } = require("../models/server.js");
 const expressError = require("../utility/ExpressError");
 const wrapAsync = require("../utility/wrapAsync");
+const {validateUser}=require("../loginmiddleware.js")
 
 
 
- const validateListing=(req,res,next)=>{
-    const {error}=listingSchema.validate(req.body);
-    if(error){
-        console.log(error)
-
-let errorMsg=error.details.map((el)=>el.message).join(",")
-console.log(errorMsg)
-        throw new expressError(401,errorMsg)
-    }else{
-        next()
+// Middleware to validate listing data
+const validateListing = (req, res, next) => {
+    const { error } = listingSchema.validate(req.body);
+    if (error) {
+        const errorMsg = error.details.map((el) => el.message).join(",");
+        console.log(errorMsg);
+        return next(new expressError(400, errorMsg)); // Use next() to pass the error to error-handling middleware
     }
- }
+    next();
+};
 
-
-// Routes
+// Route to show all listings
 router.get("/", wrapAsync(async (req, res) => {
-    let allListing = await Listing.find({});
-    
-    
+    const allListing = await Listing.find({});
     res.render("listings/show.ejs", { allListing });
 }));
 
-
-router.get("/new", (req, res) => {
+// Route to show form for new listing
+router.get("/new", validateUser, (req, res) => {
     res.render("listings/new.ejs");
 });
 
-//add route
-
-router.post("/",validateListing, wrapAsync(async (req, res, next) => {
-   const newListing =  new Listing(req.body.listing);
+// Route to add a new listing
+router.post("/", validateListing, wrapAsync(async (req, res) => {
+    const newListing = new Listing(req.body.listing);
+    newListing.owner=req.user._id
     await newListing.save();
-    req.flash("sucess","Listing added sucessfully")
- res.redirect("/listings");
+    req.flash("sucess", "Listing added successfully."); // Keep the spelling as requested
+    res.redirect("/listings");
 }));
 
+// Route to show a specific listing
 router.get("/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let listings = await Listing.findById(id).populate("review");
-    
+    const { id } = req.params;
+    const listings = await Listing.findById(id).populate("review").populate("owner");
+
     if (!listings) {
-        req.flash("error", "Listings Not Found");
-        return res.redirect("/listings");
+        req.flash("error", "Listing not found.");
+        return res.redirect("/listings"); // Return to prevent further processing
     }
     res.render("listings/read.ejs", { listings });
 }));
 
-//upadte route
+// Route to show edit form for a specific listing
+router.get("/:id/edit", validateUser, wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const listing = await Listing.findById(id);
 
-router.get("/:id/edit", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let Listings = await Listing.findById(id);
-    
-    if (!Listings ) {
-        req.flash("error", "Listings Not Found");
-        return res.redirect("/listings");
+    if (!listing) {
+        req.flash("error", "Listing not found.");
+        return res.redirect("/listings"); // Return to prevent further processing
     }
-    res.render("listings/edit.ejs", { Listings });
+    res.render("listings/edit.ejs", { listing });
 }));
 
-router.put("/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let {title,description,image,country,price,location}=req.body;
-   await Listing.findByIdAndUpdate(id, {title,description,image,country,price,location});
-   
-
-   req.flash("sucess","Listing Updated sucessfully")
-
+// Route to update a specific listing
+router.put("/:id", validateUser, wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const { title, description, image, country, price, location } = req.body;
+    await Listing.findByIdAndUpdate(id, { title, description, image, country, price, location });
+    req.flash("sucess", "Listing updated successfully."); // Keep the spelling as requested
     res.redirect(`/listings/${id}`);
 }));
 
-//delete route
-
-router.delete("/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
+// Route to delete a specific listing
+router.delete("/:id", validateUser, wrapAsync(async (req, res) => {
+    const { id } = req.params;
     await Listing.findByIdAndDelete(id);
-    req.flash("sucess","Listing Deleted")
+    req.flash("sucess", "Listing deleted successfully."); // Keep the spelling as requested
     res.redirect("/listings");
 }));
 
-
-
-
-
-
-
-
-
-
-
-
-module.exports=router
+module.exports = router;

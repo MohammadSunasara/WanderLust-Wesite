@@ -2,14 +2,14 @@
 body {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh; /* Ensures the body takes up at least the full height of the viewport */
     margin: 0; /* Ensure no extra margin */
 }
 
 /* Container should take up remaining space */
 .container {
-    flex: 1;
-    height: 100vh;
+    flex: 1; /* Allows the container to grow and fill available space */
+    padding: 1rem; /* Optional: Add padding to the container if needed */
 }
 
 /* Navigation link styling */
@@ -55,6 +55,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: auto; /* Pushes footer to the bottom of the page */
 }
 
 /* Flexbox styling for footer content */
