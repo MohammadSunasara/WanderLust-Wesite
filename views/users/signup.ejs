@@ -1,0 +1,55 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<style>
+
+/* Custom styles for sign-up page */
+@media (max-width: 576px) {
+  .form-control {
+    font-size: 0.875rem; /* Adjust font size for smaller screens */
+  }
+
+  .btn-primary {
+    font-size: 0.875rem; /* Adjust font size for the button */
+  }
+}
+
+/* Ensure input fields are full width */
+.form-control {
+  width: 100%;
+}
+
+/* Styling for the submit button */
+.btn-primary {
+  font-size: 1rem; /* Adjust font size */
+}
+
+</style>
+
+<div class="container">
+  <div class="row justify-content-center mt-4">
+    <h1 class="col-12 text-center mb-4">Sign Up to WanderLust</h1>
+    <div class="col-md-8 col-lg-6">
+      <form action="/signup" method="POST" novalidate class="needs-validation">
+        <div class="mb-3">
+          <label for="username" class="form-label">Enter Your Username</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+          <div class="valid-feedback">Looks Good</div>
+          <div class="invalid-feedback">Enter a username.</div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Enter Your Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+          <div class="valid-feedback">Looks Good</div>
+          <div class="invalid-feedback">Enter a valid email.</div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Enter Your Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+          <div class="valid-feedback">Looks Good</div>
+          <div class="invalid-feedback">Enter a password.</div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+      </form>
+    </div>
+  </div>
+</div>

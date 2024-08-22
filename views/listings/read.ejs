@@ -1,0 +1,133 @@
+<% layout ("/layouts/boilerplate.ejs") %>
+
+<div class="container">
+  <!-- Listing Title -->
+  <div class="row">
+    <div class="col-12 text-center mt-2">
+      <h3><%= listings.title %></h3>
+    </div>
+  </div>
+
+  <!-- Listing Card -->
+  <div class="card col-12 mx-auto listing-card mb-4">
+    <img src="<%= listings.image.url %>" class="card-img-top" alt="Listing_image">
+    <div class="card-body listing-card">
+      <p class="card-text mt-3 mb-3">
+        <b>Owned By :</b> <%= listings.owner.username %> <br>
+        <b>Description:</b> <%= listings.description %> <br>
+        <b>Price:</b> &#8377 <%= listings.price %> / night <br>
+        <b>Location:</b> <%= listings.location %> <br>
+        <b>Country:</b> <%= listings.country %> <br>
+      </p>
+      <% if (!currUser || (currUser && listings.owner.id.toString() !== currUser.id.toString())) { %>
+        <a href="/listings/<%= listings.id %>/reserve/booking" class="btn btn-primary ">Book</a>
+      <% } %>
+
+      <!-- Check if the current user is the owner -->
+      <% if (currUser && listings.owner.id.toString() === currUser.id.toString()) { %>
+        <div>
+          <a href="/listings/<%= listings.id %>/edit" class="btn btn-primary">Edit</a>
+          <form action="/listings/<%= listings.id %>?_method=DELETE" method="POST" class="d-inline">
+            <button class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Review Form -->
+
+
+  <!-- Map Section -->
+  <div class="col-12 mb-4">
+    <hr>
+    <h5 class="text-center">Where You'll Be</h5>
+    <div id="map" style="height: 300px;"></div>
+  </div>
+</div>
+
+<% if (currUser) { %>
+    <div class="col-12 mb-4">
+      <hr>
+      <h4 class="text-center">Leave a Review</h4>
+      <form action="/listings/<%= listings.id %>/reviews" method="POST" novalidate class="needs-validation">
+        <div class="mb-3">
+          <label for="rating" class="form-label">Rating</label>
+          <fieldset class="starability-slot">
+            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        </div>
+        <div class="mb-3">
+          <label for="comment" class="form-label">Comment</label>
+          <textarea name="review[comment]" id="comment" cols="30" rows="8" class="form-control" required></textarea>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  <% } %>
+
+  <!-- Display Reviews -->
+  <% if (listings.review && listings.review.length > 0) { %>
+    <div class="col-12 mb-4">
+      <hr>
+      <h4 class="text-center"><b>All Reviews</b></h4>
+      <div class="row review-card">
+        <% for (let review of listings.review) { %>
+          <div class="card col-12 col-md-5 mb-3">
+            <div class="card-body ">
+              <h5><%= review.author.username %></h5>
+              <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+              <p class="card-text">Comment: <%= review.comment %></p>
+              <% if (currUser && (currUser.id.toString() === review.author.id.toString())) { %>
+                <form method="POST" action="/listings/<%= listings.id %>/reviews/<%= review.id %>?_method=DELETE">
+                  <button class="btn btn-danger">Delete</button>
+                </form>
+              <% } %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  <% } %>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+const coordinates = <%- JSON.stringify(listings.geometry.coordinates) %>;
+console.log(coordinates);
+
+// Initialize the map
+var map = L.map('map').setView([coordinates[1], coordinates[0]], 13); // Default coordinates and zoom level
+
+// Add OpenStreetMap tile layer
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+const redMarkerIcon = L.icon({
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png', // Default icon
+    iconSize: [25, 41], // Size of the icon
+    iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
+    popupAnchor: [1, -34], // Point from which the popup should open relative to the iconAnchor
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    shadowSize: [41, 41]
+});
+
+// Add a marker to the map with coordinates from the listings
+L.marker([coordinates[1], coordinates[0]], { icon: redMarkerIcon }).addTo(map)
+    .bindTooltip('Exact Location Provided After Booking', {
+        permanent: false, // Tooltip only visible on hover
+        direction: 'top', // Position the tooltip above the marker
+        offset: [0, 10] // Adjust the vertical offset to position the tooltip nicely above the marker
+    });
+</script>

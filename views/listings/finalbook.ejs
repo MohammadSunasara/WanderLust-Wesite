@@ -1,0 +1,76 @@
+<% layout ("/layouts/boilerplate.ejs") %>
+
+<!-- Display Current User Info -->
+<div class="user-info">
+    <h3>Your Information</h3>
+    <p><strong>Username:</strong> <%= currUser.username %></p>
+    <p><strong>Email:</strong> <%= currUser.email %></p>
+</div>
+
+<!-- Booking Form -->
+<div class="booking-form">
+    <h3>Confirm Your Booking</h3>
+    <form action="/listings/<%= listings._id %>/reserve/booking/detail" method="POST">
+        <div class="form-group col-8">
+            <label for="email">Enter Valid Email For More Details</label>
+            <input type="email" id="email" name="email" value="<%= currUser.email %>" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+    </form>
+</div>
+
+<!-- Thank You Message -->
+<div class="thank-you-message">
+    <h3>Thank You for Booking!</h3>
+    <p>We appreciate your booking request. You will receive a confirmation email shortly. If you have any questions or need further assistance, please contact our support team.</p>
+</div>
+
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .user-info, .booking-form, .thank-you-message {
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .thank-you-message h3 {
+        color: #28a745;
+    }
+
+    .thank-you-message p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+</style>

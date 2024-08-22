@@ -1,0 +1,40 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<style>
+/* Custom styles for very small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .form-control {
+    font-size: 0.875rem; /* Smaller font size for form controls */
+  }
+
+  .btn-primary {
+    font-size: 0.875rem; /* Smaller font size for button */
+  }
+}
+.sign{
+  text-decoration:none;
+}
+</style>
+
+<div class="container">
+  <div class="row justify-content-center mt-4">
+    <h1 class="col-12 text-center mb-4">Login to WanderLust</h1>
+    <div class="col-md-8 col-lg-6">
+      <form action="/login" method="POST" novalidate class="needs-validation">
+        <div class="mb-3">
+          <label for="username" class="form-label">Enter Your Username</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Enter a username.</div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Enter Your Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Enter a password.</div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+        <small>Don't Have account? <a href="/signup" class="sign">Signup</a></small>
+      </form>
+    </div>
+  </div>
+</div>

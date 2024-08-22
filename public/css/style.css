@@ -1,0 +1,391 @@
+/* Ensure the body takes up the full height of the viewport and uses flexbox layout */
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the body takes up at least the full height of the viewport */
+    margin: 0; /* Ensure no extra margin */
+}
+
+/* Container should take up remaining space */
+.container {
+    flex: 1; /* Allows the container to grow and fill available space */
+    padding: 1rem; /* Optional: Add padding to the container if needed */
+}
+
+/* Navigation link styling */
+.nav-link {
+    position: relative; /* Required for positioning the pseudo-element */
+    text-decoration: none; /* Remove default underline */
+    color: #222; /* Default text color */
+}
+
+.nav-link::after {
+    content: ''; /* Create an empty pseudo-element */
+    display: block;
+    width: 0; /* Start with no width */
+    height: 1px; /* Thickness of the underline */
+    background-color: red; /* Color of the underline */
+    position: absolute;
+    bottom: -1px; /* Position the underline below the text */
+    left: 0;
+    transition: width 0.3s ease; /* Smooth transition effect */
+}
+
+.nav-link:hover::after {
+    width: 100%; /* Expand to full width on hover */
+}
+
+/* Navbar styling */
+.navbar {
+    height: 5rem;
+    background-color: white;
+}
+
+.navbar-nav {
+    background-color: #ffffff; /* White background color */
+    padding: 0.5rem 1rem; /* Adjust padding as needed */
+    border-radius: 0.25rem; /* Optional: Add border-radius for rounded corners */
+}
+
+/* Footer styling */
+footer {
+    background-color: #ebebeb;
+    height: 8rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto; /* Pushes footer to the bottom of the page */
+}
+
+/* Flexbox styling for footer content */
+.f-info {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.f-info-links, .f-info-socials, .f-info-brand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-links a {
+    color: #222;
+    text-decoration: none;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+
+.f-info-socials i {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+
+/* Card styling */
+.listing-card {
+    border: none !important;
+    margin-top: 2rem !important;
+    margin: 0 0 0 0 !important;
+    
+
+
+
+   
+}
+
+
+.card-img-top {
+    border: 1rem !important;
+    width: auto !important;
+    height: 16rem !important;
+    object-fit: cover !important;
+    border-radius: 10px;
+ 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+   
+}
+
+.card-body {
+    padding: 0 !important;
+
+}
+
+.card-text p {
+    font-weight: 400 !important;
+}
+
+.listing-a {
+    text-decoration: none;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.3;
+    background-color: white;
+}
+
+/* Button styling */
+.btn {
+    background-color: red !important;
+    border: none !important;
+}
+
+.btns {
+    display: flex;
+}
+
+.edit {
+    width: 4rem !important;
+}
+#map{
+    height: 300px;
+    width: 100%;
+}
+
+.leaflet-marker-icon {
+    filter: hue-rotate(180deg) saturate(1000%) brightness(1) contrast(1);
+  color: red; 
+}
+
+/* navbar k niche wala */
+
+#filter{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.filter{
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-right: 2rem;
+    opacity: 0.6;
+}
+.filter:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+.filter p{
+    font-size: 0.7rem;
+}
+.tax-info{
+    display: none;
+}
+
+.tax-btn{
+    display: flex;
+    align-items: center;
+    height: 2.75rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-left: 2rem;
+}
+
+/* search btn */
+.btn-search{
+    border-radius: 25px !important;
+    padding: 0 1rem 0 1rem 0 !important;
+}
+
+.search-input{
+    border-radius: 25px !important;
+    padding: 0.5rem 3rem 0.5rem 3rem !important;
+}
+
+.dropdown-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+  }
+
+  .dropdown-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+
+  .dropdown-item:hover {
+    background-color: #f8f9fa;
+  }
+
+  .icon{
+     color: red;
+     /* background-color: red; */
+     font-size: xx-large;
+  }
+  .explore{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  padding-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+
+
+  #filter-container {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#filter-container .filter {
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+#scroll-right {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* .book-card{
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+}
+
+.book-image{
+    width: 25% !important;
+} */
+.text{
+    padding-left: 4rem !important;
+    padding-top: 1rem !important;
+}
+
+.book-price{
+    height: 12rem !important;
+    width: 100px ;
+   
+    
+}
+
+.card{
+    padding:1.5rem;
+  }
+
+.review-card{
+    display:flex;
+    justify-content: space-evenly;
+    width: 95% !important;
+    margin-left: 0.5rem !important;
+
+}
+
+#filter {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for touch devices */
+    padding: 10px;
+    font-size: large;
+    
+  }
+
+ 
+
+  .dropdown-menu {
+    width: 100%; /* Ensure the dropdown takes full width */
+    position: absolute; /* Position dropdown absolutely */
+    top: 100%; /* Position dropdown below the input */
+    left: 0; /* Align dropdown to the left of the input */
+    z-index: 1000; /* Ensure dropdown is above other elements */
+  }
+  .search-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .search-input {
+    flex: 1; /* Make input take remaining space */
+  }
+
+  .search-invisible {
+    display: none !important;
+  }
+
+  @media (max-width: 767.98px) {
+    .navbar-nav.ali {
+      display: none; /* Hide the Explore link on mobile */
+    }
+    .search-bar {
+      display: none !important; /* Hide the search bar on mobile */
+    }
+    .navbar-toggler {
+      display: block; /* Ensure the toggler is visible on mobile */
+    }
+    .navbar-collapse {
+      flex-grow: 0;
+    }
+    .dropdown-menu {
+      position: absolute; /* Ensure dropdown menu does not push down content */
+    }
+    form button {
+      display: none;
+    }
+    .search-invisible {
+      display: inline !important;
+      width: 60% !important;
+      margin-top: 0.4rem !important;
+      margin-right: 3rem !important;
+    }
+    .search-container {
+        display: flex;
+        align-items: center; /* Align items vertically centered */
+        position: relative; /* Needed for absolute positioning of dropdown */
+      }
+      
+      .search-input {
+        flex: 1; /* Make input take available space */
+        margin-right: 0.5rem; /* Add spacing between input and button */
+      }
+      
+      .search-btn-invisible {
+        border-radius: 30%; /* Make the button circular */
+        padding: 0.7rem; /* Adjust padding to align with input */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0.5rem; /* Adjust margin-left as needed */
+        border: none; /* Remove border if not needed */
+      }
+    
+    
+    .dropdown-menu {
+        width:80% !important; /* Ensure the dropdown takes full width */
+        margin-left: 2.5rem !important;
+        position: absolute; /* Position dropdown absolutely */
+        top: 100%; /* Position dropdown below the input */
+        left: 0; /* Align dropdown to the left of the input */
+        z-index: 1000; /* Ensure dropdown is above other elements */
+      }
+      .icon{
+        font-size: 2rem;
+      }
+    
+    
+
+  }
+
+  .nav-link {
+    font-size: medium !important;
+  }

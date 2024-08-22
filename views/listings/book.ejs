@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listing Page</title>
+  <link rel="stylesheet" href="path/to/your/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .book-card {
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .book-image {
+      width: 100%;
+      height: 20rem;
+      object-fit: cover;
+    }
+
+    .book-price {
+      padding: 20px;
+      background-color: #f8f9fa; 
+      border: 1px solid #ddd;
+      height: 13rem !important;
+      border-radius: 8px; 
+    }
+
+    .price-item {
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .price-label {
+      font-weight: bold;
+    }
+
+    .price-value {
+      font-weight: normal;
+    }
+
+    .total {
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 767.98px) {
+      .book-image {
+        height: 15rem; /* Adjust image height on smaller screens */
+      }
+
+      .book-price {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <% layout ("/layouts/boilerplate.ejs") %>
+
+  <div class="container">
+    <!-- Listing Title -->
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h3><%= listings.title %></h3>
+      </div>
+    </div>
+
+    <!-- Listing Card -->
+    <div class="row book-card">
+      <!-- Image Column -->
+      <div class="col-md-4 d-flex align-items-center mb-4 mb-md-0">
+        <img src="<%= listings.image.url %>" class="card-img book-image" alt="Listing Image">
+      </div>
+
+      <!-- Info Column -->
+      <div class="col-md-5 d-flex flex-column justify-content-center mb-4 mb-md-0">
+        <div class="card-body">
+          <p class="card-text">
+            <b>Description:</b> <%= listings.description %> <br>
+            <b>Location:</b> <%= listings.location %> <br>
+            <b>Country:</b> <%= listings.country %>
+          </p>
+        </div>
+      </div>
+
+      <!-- Price Column -->
+      <div class="col-md-3 d-flex flex-column justify-content-between book-price">
+        <div id="price-details">
+          <!-- Placeholder for JavaScript to update -->
+        </div>
+        <a href="/listings/<%= listings.id %>/reserve/booking/detail" class="btn btn-primary mt-3">Book</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fetch price from EJS
+      const price = <%= listings.price %>;
+      
+      // Tax calculation (18% of the price)
+      const taxRate = 0.18;
+      const tax = price * taxRate;
+      
+      // Total price calculation
+      const total = price + tax;
+
+      // Update the price details section
+      const priceDetailsDiv = document.getElementById('price-details');
+      priceDetailsDiv.innerHTML = `
+        <div class="price-item">
+          <span class="price-label">Price:</span>
+          <span class="price-value">&#8377 ${price.toFixed(2)}</span>
+        </div>
+        <div class="price-item">
+          <span class="price-label">Tax (18%):</span>
+          <span class="price-value">&#8377 ${tax.toFixed(2)}</span>
+        </div>
+        <div class="price-item total">
+          <span class="price-label">Total:</span>
+          <span class="price-value">&#8377 ${total.toFixed(2)}</span>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
