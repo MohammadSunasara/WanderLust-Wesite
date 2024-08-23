@@ -381,6 +381,9 @@ footer {
       .icon{
         font-size: 2rem;
       }
+      .read-cards{
+        columns: 12 !important;
+      }
     
     
 

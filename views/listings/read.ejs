@@ -9,7 +9,7 @@
   </div>
 
   <!-- Listing Card -->
-  <div class="card col-6 offset-3 mx-auto listing-card mb-4">
+  <div class="card col-12 col-md-6 offset-md-3 mx-auto listing-card mb-4 read-cards">
     <img src="<%= listings.image.url %>" class="card-img-top" alt="Listing_image">
     <div class="card-body listing-card">
       <p class="card-text mt-3 mb-3">
@@ -20,7 +20,7 @@
         <b>Country:</b> <%= listings.country %> <br>
       </p>
       <% if (!currUser || (currUser && listings.owner.id.toString() !== currUser.id.toString())) { %>
-        <a href="/listings/<%= listings.id %>/reserve/booking" class="btn btn-primary ">Book</a>
+        <a href="/listings/<%= listings.id %>/reserve/booking" class="btn btn-primary">Book</a>
       <% } %>
 
       <!-- Check if the current user is the owner -->
@@ -36,18 +36,8 @@
   </div>
 
   <!-- Review Form -->
-
-
-  <!-- Map Section -->
-  <div class="col-12 mb-4">
-    <hr>
-    <h5 class="text-center">Where You'll Be</h5>
-    <div id="map" style="height: 300px;"></div>
-  </div>
-</div>
-
-<% if (currUser) { %>
-    <div class="col-12 mb-4">
+  <% if (currUser) { %>
+    <div class="col-12 col-md-6 offset-md-3 mb-4">
       <hr>
       <h4 class="text-center">Leave a Review</h4>
       <form action="/listings/<%= listings.id %>/reviews" method="POST" novalidate class="needs-validation">
@@ -78,13 +68,13 @@
 
   <!-- Display Reviews -->
   <% if (listings.review && listings.review.length > 0) { %>
-    <div class="col-12 mb-4">
+    <div class="col-12 col-md-6 offset-md-3 mb-4">
       <hr>
       <h4 class="text-center"><b>All Reviews</b></h4>
       <div class="row review-card">
         <% for (let review of listings.review) { %>
           <div class="card col-12 col-md-5 mb-3">
-            <div class="card-body ">
+            <div class="card-body">
               <h5><%= review.author.username %></h5>
               <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
               <p class="card-text">Comment: <%= review.comment %></p>
@@ -99,6 +89,14 @@
       </div>
     </div>
   <% } %>
+
+  <!-- Map Section -->
+  <div class="col-12 col-md-6 offset-md-3 mb-4">
+    <hr>
+    <h5 class="text-center">Where You'll Be</h5>
+    <div id="map" style="height: 300px;"></div>
+  </div>
+</div>
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
