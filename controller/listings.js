@@ -119,18 +119,20 @@ module.exports.updateEjs=async (req, res) => {
     res.render("listings/edit.ejs", { Listings,originalImageName});
   }
 
-module.exports.updateLisitng=async (req, res) => {
+module.exports.update=async (req, res) => {
+    
        let {id}=req.params;
        let{title,location,description,country,price}=req.body;
-       let listing=await findByIdAndUpdate(id,{title,location,description,country,price});
+       let listing=await Listing.findByIdAndUpdate(id,{title,location,description,country,price});
        if(typeof req.file !=="undefined"){
+        console.log(req.file)
         let url=req.file.path
         let filename=req.file.filename
         listing.image={url,filename}
       await listing.save()
        }
        req.flash("sucess","Listing Updated Sucessfully")
-       req.redirect(`/listings/${id}`)
+       res.redirect(`/listings/${id}`)
   
 
     

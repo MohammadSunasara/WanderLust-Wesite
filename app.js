@@ -50,9 +50,10 @@ const store=MongoStore.create({
     },
     touchAfter:24*3600,
 })
-store.on("errro",function () {
-        console.log(error);
-    })
+store.on("error", function (error) {
+    console.log(error);
+});
+
 
 
 const sessionOptions={
@@ -111,9 +112,14 @@ app.all("*", (req, res, next) => {
   next(new expressError(404, "Page Not Found!!"));
 });
 
+app.use((req, res, next) => {
+    console.log('Handling request:', req.method, req.url);
+    next();
+});
 // Error Handling Middleware - should be at the end
 app.use((err, req, res, next) => {
     let {status=500,message}=err// log the error stack for debugging
+    console.log(err)
     res.status(500).render("error.ejs",{message}); // send a generic error response
 });
 

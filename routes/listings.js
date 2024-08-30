@@ -62,7 +62,8 @@ router.get("/:id", wrapAsync(listingController.readListing));
 router.get("/:id/edit", validateUser, isOwner, wrapAsync(listingController.updateEjs));
 
 // Route to update a specific listing
-router.put("/:id", validateUser, isOwner, upload.single("image"), wrapAsync(listingController.updateListing));
+router.put("/:id", validateUser, isOwner, upload.single("image"), wrapAsync(listingController.update));
+
 
 // Route to delete a specific listing
 router.delete("/:id", validateUser, isOwner, wrapAsync(listingController.deleteListing));

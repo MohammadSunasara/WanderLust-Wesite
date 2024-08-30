@@ -1,57 +1,61 @@
 <% layout("/layouts/boilerplate.ejs") %>
 <body>
-<div class="row">
-<div class="col-8 offset-2">
-    <h2>Edit Listings</h2>
-    <form action="/listings/<%=Listings.id%>?_method=PUT" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" class="form-control" id="title" name="title" value="<%=Listings.title%>" required>
-        <div class="valid-feedback">Perfect Title</div>
-        <div class="invalid-feedback">Enter title</div>
-      </div>
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" name="description" rows="4" value="<%=Listings.description%>" required></textarea>
-        <div class="valid-feedback">Perfect Description</div>
-        <div class="invalid-feedback">Enter Valid Description</div>
-      </div>
-      <div class="mb-3">
-        Original Image <br>
-        <img src="<%=originalImageName%>">
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-8 offset-md-2">
+      <h2 class="text-center">Edit Listings</h2>
+      <form action="/listings/<%= Listings.id %>?_method=PUT" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
         
-
-    
-      </div>
-      <div class="mb-3">
-        <label for="image" class="form-label">Upload New Image</label>
-        <input type="file" class="form-control" id="image" name="image" placeholder="Change Image" >
-    
-      </div>
-      <div class="row ">
-      <div class="mb-3 col-md-4">
-        <label for="price" class="form-label">Price</label>
-        <input type="number" class="form-control" id="price" name="price" value="<%=Listings.price%>" required>
-        <div class="valid-feedback">Perfect Price</div>
-        <div class="invalid-feedback">Enter Valid Price</div>
-      </div>
-       <div class="mb-3 col-md-8">
-        <label for="country" class="form-label">Country</label>
-        <input type="text" class="form-control" id="country" name="country" value="<%=Listings.country%>" required>
-        <div class="valid-feedback">Perfect Country</div>
-        <div class="invalid-feedback">Enter Valid Country</div>
-      </div>
-      </div>
-       <div class="mb-3 ">
-        <label for="location" class="form-label">Location</label>
-        <input type="text" class="form-control" id="location" name="location" value="<%=Listings.location%>" required>
-        <div class="valid-feedback">Perfect Location</div>
-        <div class="invalid-feedback">Enter Valid Location</div>
-      </div>
-     
-      <button type="submit" class="btn btn-primary mb-2">Edit</button>
-    </form>
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" name="title" value="<%= Listings.title %>" required>
+          <div class="valid-feedback">Perfect Title</div>
+          <div class="invalid-feedback">Enter title</div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" name="description" rows="4" required><%= Listings.description %></textarea>
+          <div class="valid-feedback">Perfect Description</div>
+          <div class="invalid-feedback">Enter Valid Description</div>
+        </div>
+        
+        <div class="mb-3">
+          <label>Original Image</label> <br>
+          <img src="<%= originalImageName %>" class="img-fluid" alt="Original Image">
+        </div>
+        
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload New Image</label>
+          <input type="file" class="form-control" id="image" name="image" placeholder="Change Image">
+        </div>
+        
+        <div class="row">
+          <div class="mb-3 col-12 col-md-6">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" value="<%= Listings.price %>" required>
+            <div class="valid-feedback">Perfect Price</div>
+            <div class="invalid-feedback">Enter Valid Price</div>
+          </div>
+          
+          <div class="mb-3 col-12 col-md-6">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" class="form-control" id="country" name="country" value="<%= Listings.country %>" required>
+            <div class="valid-feedback">Perfect Country</div>
+            <div class="invalid-feedback">Enter Valid Country</div>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input type="text" class="form-control" id="location" name="location" value="<%= Listings.location %>" required>
+          <div class="valid-feedback">Perfect Location</div>
+          <div class="invalid-feedback">Enter Valid Location</div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary mb-2">Edit</button>
+      </form>
     </div>
-    </div>
-  
+  </div>
+</div>
 </body>

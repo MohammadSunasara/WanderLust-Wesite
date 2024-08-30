@@ -1,79 +1,90 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-<div class="row">
-  <div class="col-8 offset-2">
-    <h2>Add a New Listing</h2>
-    <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" class="form-control" id="title" name="listing[title]" required>
-        <div class="valid-feedback">Perfect Title</div>
-        <div class="invalid-feedback">Enter title</div>
-      </div>
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" name="listing[description]" rows="4" required></textarea>
-        <div class="valid-feedback">Perfect Description</div>
-        <div class="invalid-feedback">Enter Valid Description</div>
-      </div>
-      <div class="mb-3">
-        <label for="image" class="form-label">Upload Image For Your Listing</label>
-        <input type="file" class="form-control" id="image" name="listing[image]" required>
-      </div>
-      <div class="row">
-        <div class="mb-3 col-md-4">
-          <label for="price" class="form-label">Price</label>
-          <input type="number" class="form-control" id="price" name="listing[price]" required>
-          <div class="valid-feedback">Done</div>
-          <div class="invalid-feedback">Enter Valid Price</div>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-8 offset-md-2">
+      <h2 class="text-center">Add a New Listing</h2>
+      <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+        
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" name="listing[title]" required>
+          <div class="valid-feedback">Perfect Title</div>
+          <div class="invalid-feedback">Enter title</div>
         </div>
-        <div class="mb-3 col-md-8">
-          <label for="country" class="form-label">Country</label>
-          <input type="text" class="form-control" id="country" name="listing[country]" required>
-          <div class="valid-feedback">Done</div>
-          <div class="invalid-feedback">Enter Valid Country</div>
+        
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" name="listing[description]" rows="4" required></textarea>
+          <div class="valid-feedback">Perfect Description</div>
+          <div class="invalid-feedback">Enter Valid Description</div>
         </div>
-      </div>
-      <div class="row">
-        <div class="mb-3 col-md-6">
-          <label for="location" class="form-label">Location</label>
-          <input type="text" class="form-control" id="location" name="listing[location]" required>
-          <div class="valid-feedback">Done</div>
-          <div class="invalid-feedback">Enter Valid Location</div>
+        
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload Image For Your Listing</label>
+          <input type="file" class="form-control" id="image" name="listing[image]" required>
         </div>
-        <div class="mb-3 col-md-6">
-          <label for="state" class="form-label">State</label>
+        
+        <div class="row">
+          <div class="mb-3 col-12 col-md-6">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="listing[price]" required>
+            <div class="valid-feedback">Done</div>
+            <div class="invalid-feedback">Enter Valid Price</div>
+          </div>
+          
+          <div class="mb-3 col-12 col-md-6">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" class="form-control" id="country" name="listing[country]" required>
+            <div class="valid-feedback">Done</div>
+            <div class="invalid-feedback">Enter Valid Country</div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="mb-3 col-12 col-md-6">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" class="form-control" id="location" name="listing[location]" required>
+            <div class="valid-feedback">Done</div>
+            <div class="invalid-feedback">Enter Valid Location</div>
+          </div>
+          
+          <div class="mb-3 col-12 col-md-6">
+            <label for="state" class="form-label">State</label>
+            <div class="dropdown-container">
+              <input type="text" id="state-input" class="form-control" placeholder="Search for a state..." oninput="filterStateDropdown()">
+              <ul id="state-dropdown" class="dropdown-menu">
+                <!-- Options will be added here dynamically -->
+              </ul>
+            </div>
+            <input type="hidden" id="state" name="listing[state]">
+            <div class="valid-feedback">State selected</div>
+            <div class="invalid-feedback">Select a valid state</div>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="filter" class="form-label">Filter</label>
           <div class="dropdown-container">
-            <input type="text" id="state-input" class="form-control" placeholder="Search for a state..." oninput="filterStateDropdown()">
-            <ul id="state-dropdown" class="dropdown-menu">
+            <input type="text" id="filter-input" class="form-control" placeholder="Search for a filter..." oninput="filterDropdown()">
+            <ul id="filter-dropdown" class="dropdown-menu">
               <!-- Options will be added here dynamically -->
             </ul>
           </div>
-          <input type="hidden" id="state" name="listing[state]" >
-          <div class="valid-feedback">State selected</div>
-          <div class="invalid-feedback">Select a valid state</div>
+          <input type="hidden" id="filter" name="listing[filter]">
+          <div class="valid-feedback">Filter selected</div>
+          <div class="invalid-feedback">Select a valid filter</div>
         </div>
-      </div>
-      <div class="mb-3">
-        <label for="filter" class="form-label">Filter</label>
-        <div class="dropdown-container">
-          <input type="text" id="filter-input" class="form-control" placeholder="Search for a filter..." oninput="filterDropdown()">
-          <ul id="filter-dropdown" class="dropdown-menu">
-            <!-- Options will be added here dynamically -->
-          </ul>
-        </div>
-        <input type="hidden" id="filter" name="listing[filter]" >
-        <div class="valid-feedback">Filter selected</div>
-        <div class="invalid-feedback">Select a valid filter</div>
-      </div>
-      <button type="submit" class="btn btn-primary mb-2">Add</button>
-    </form>
+        
+        <button type="submit" class="btn btn-primary mb-2">Add</button>
+      </form>
+    </div>
   </div>
 </div>
 
 <script src="/js/script.js"></script>
 
-  <script>
+<script>
   // List of predefined states
   const states = [
     "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", 
@@ -169,20 +180,3 @@
   }
 
   // Show filter dropdown when input is focused
-  document.getElementById('filter-input').addEventListener('focus', () => {
-    document.getElementById('filter-dropdown').style.display = 'block';
-  });
-
-  // Populate filter dropdown on page load
-  populateFilterDropdown();
-
-  // Close both dropdowns when clicking outside
-  document.addEventListener('click', (event) => {
-    if (!event.target.closest('.dropdown-container')) {
-      closeFilterDropdown();
-      closeStateDropdown();
-    }
-  });
-</script>
-
-

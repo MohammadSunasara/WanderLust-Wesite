@@ -1,7 +1,8 @@
-const wrapAsync= function (fn){
-    return function( req,res,next){
-        fn(req,res,next).catch(next);
-    }
-}
+const wrapAsync = function(fn) {
+    
+    return function(req, res, next) {
+        Promise.resolve(fn(req, res, next)).catch(next);
+    };
+};
 
-module.exports=wrapAsync;
+module.exports = wrapAsync;
