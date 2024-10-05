@@ -4,7 +4,6 @@
 
 const express = require("express");
 const app = express();
-const rateLimit = require('express-rate-limit');
 const mongoose = require("mongoose");
 const path = require("path");
 const Joi = require('joi');
@@ -55,12 +54,6 @@ store.on("error", function (error) {
     console.log(error);
 });
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // Limit each IP to 10 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.'
-});
-app.use(limiter);
 
 
 
