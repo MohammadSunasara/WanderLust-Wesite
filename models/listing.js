@@ -37,6 +37,7 @@ const listingSchema = new Schema({
     filter:{
         type:String,
         enum:["Mountain","Boats","Domes","Arctic","Rooms","Mountain Cities","Castles","Amazing Pools","Camping","Farms"],
+        default: 'Mountain'
         
     },
     state:{
@@ -71,6 +72,7 @@ const listingSchema = new Schema({
             "Uttarakhand",
             "West Bengal"
         ],
+        default:"Maharashtra"
        
 
         
