@@ -5,26 +5,25 @@
     <div class="col-12 col-md-8 offset-md-2">
       <h2 class="text-center">Add a New Listing</h2>
       <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
-        
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input type="text" class="form-control" id="title" name="listing[title]" required>
           <div class="valid-feedback">Perfect Title</div>
           <div class="invalid-feedback">Enter title</div>
         </div>
-        
+
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
           <textarea class="form-control" id="description" name="listing[description]" rows="4" required></textarea>
           <div class="valid-feedback">Perfect Description</div>
           <div class="invalid-feedback">Enter Valid Description</div>
         </div>
-        
+
         <div class="mb-3">
           <label for="image" class="form-label">Upload Image For Your Listing</label>
           <input type="file" class="form-control" id="image" name="listing[image]" required>
         </div>
-        
+
         <div class="row">
           <div class="mb-3 col-12 col-md-6">
             <label for="price" class="form-label">Price</label>
@@ -32,7 +31,7 @@
             <div class="valid-feedback">Done</div>
             <div class="invalid-feedback">Enter Valid Price</div>
           </div>
-          
+
           <div class="mb-3 col-12 col-md-6">
             <label for="country" class="form-label">Country</label>
             <input type="text" class="form-control" id="country" name="listing[country]" required>
@@ -40,143 +39,35 @@
             <div class="invalid-feedback">Enter Valid Country</div>
           </div>
         </div>
-        
+
         <div class="row">
           <div class="mb-3 col-12 col-md-6">
-            <label for="location" class="form-label">Location</label>
-            <input type="text" class="form-control" id="location" name="listing[location]" required>
-            <div class="valid-feedback">Done</div>
-            <div class="invalid-feedback">Enter Valid Location</div>
-          </div>
-          
-          <div class="mb-3 col-12 col-md-6">
             <label for="state" class="form-label">State</label>
-            <div class="dropdown-container">
-              <input type="text" id="state-input" class="form-control" placeholder="Search for a state..." oninput="filterStateDropdown()">
-              <ul id="state-dropdown" class="dropdown-menu">
-                <!-- Options will be added here dynamically -->
-              </ul>
-            </div>
-            <input type="hidden" id="state" name="listing[state]">
+            <select class="form-select" id="state" name="listing[state]" required>
+              <option value="" disabled selected>Select a State</option>
+              <% ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"].forEach(state => { %>
+                <option value="<%= state %>"><%= state %></option>
+              <% }); %>
+            </select>
             <div class="valid-feedback">State selected</div>
             <div class="invalid-feedback">Select a valid state</div>
           </div>
-        </div>
-        
-        <div class="mb-3">
-          <label for="filter" class="form-label">Filter</label>
-          <div class="dropdown-container">
-            <input type="text" id="filter-input" class="form-control" placeholder="Search for a filter..." oninput="filterDropdown()">
-            <ul id="filter-dropdown" class="dropdown-menu">
-              <!-- Options will be added here dynamically -->
-            </ul>
+
+          <div class="mb-3 col-12 col-md-6">
+            <label for="filter" class="form-label">Filter</label>
+            <select class="form-select" id="filter" name="listing[filter]" required>
+              <option value="" disabled selected>Select a Filter</option>
+              <% ["Mountain", "Boats", "Domes", "Arctic", "Rooms", "Mountain Cities", "Castles", "Amazing Pools", "Camping", "Farms"].forEach(filter => { %>
+                <option value="<%= filter %>"><%= filter %></option>
+              <% }); %>
+            </select>
+            <div class="valid-feedback">Filter selected</div>
+            <div class="invalid-feedback">Select a valid filter</div>
           </div>
-          <input type="hidden" id="filter" name="listing[filter]">
-          <div class="valid-feedback">Filter selected</div>
-          <div class="invalid-feedback">Select a valid filter</div>
         </div>
-        
-        <button type="submit" class="btn btn-primary mb-2">Add</button>
+
+        <button type="submit" class="btn btn-primary mb-2">Add Listing</button>
       </form>
     </div>
   </div>
 </div>
-
-<script src="/js/script.js"></script>
-
-<script>
-  // List of predefined states
-  const states = [
-    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", 
-    "Chhattisgarh", "Goa", "Gujarat", "Haryana", 
-    "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", 
-    "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", 
-    "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", 
-    "Sikkim", "Tamil Nadu", "Telangana", "Tripura", 
-    "Uttar Pradesh", "Uttarakhand", "West Bengal"
-  ];
-
-  // List of predefined filter options
-  const filters = [
-    "Mountain", "Boats", "Domes", "Arctic", "Rooms", 
-    "Mountain Cities", "Castles", "Amazing Pools", 
-    "Camping", "Farms"
-  ];
-
-  // Function to populate the state dropdown with options
-  function populateStateDropdown(filteredStates) {
-    const dropdown = document.getElementById('state-dropdown');
-    dropdown.innerHTML = ""; // Clear existing items
-    filteredStates.forEach(state => {
-      const li = document.createElement('li');
-      li.textContent = state;
-      li.className = 'dropdown-item';
-      li.onclick = () => selectState(state);
-      dropdown.appendChild(li);
-    });
-    dropdown.classList.toggle('show', filteredStates.length > 0);
-  }
-
-  // Function to filter state dropdown items based on user input
-  function filterStateDropdown() {
-    const input = document.getElementById('state-input').value.toUpperCase();
-    const filteredStates = states.filter(state => state.toUpperCase().includes(input));
-    populateStateDropdown(filteredStates);
-  }
-
-  // Function to handle state selection
-  function selectState(state) {
-    document.getElementById('state-input').value = state;
-    document.getElementById('state').value = state;
-    closeStateDropdown();
-  }
-
-  // Function to close the state dropdown
-  function closeStateDropdown() {
-    document.getElementById('state-dropdown').classList.remove('show');
-  }
-
-  // Populate state dropdown on page load
-  populateStateDropdown(states);
-
-  // Function to populate the filter dropdown with options
-  function populateFilterDropdown() {
-    const dropdown = document.getElementById('filter-dropdown');
-    dropdown.innerHTML = ""; // Clear existing items
-    filters.forEach(filter => {
-      const li = document.createElement('li');
-      li.textContent = filter;
-      li.className = 'dropdown-item';
-      li.onclick = () => selectFilter(filter);
-      dropdown.appendChild(li);
-    });
-  }
-
-  // Function to filter filter dropdown items based on user input
-  function filterDropdown() {
-    const input = document.getElementById('filter-input').value.toUpperCase();
-    const dropdown = document.getElementById('filter-dropdown');
-    const items = dropdown.getElementsByTagName('li');
-    Array.from(items).forEach(item => {
-      if (item.textContent.toUpperCase().includes(input)) {
-        item.style.display = "";
-      } else {
-        item.style.display = "none";
-      }
-    });
-    dropdown.classList.toggle('show', input.length > 0);
-  }
-
-  // Function to handle filter selection
-  function selectFilter(filter) {
-    document.getElementById('filter-input').value = filter;
-    document.getElementById('filter').value = filter;
-    closeFilterDropdown();
-  }
-
-  // Function to close the filter dropdown
-  function closeFilterDropdown() {
-    document.getElementById('filter-dropdown').style.display = 'none';
-  }
-
-  // Show filter dropdown when input is focused
